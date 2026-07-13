@@ -42,127 +42,573 @@ const { useState, useEffect, useMemo, useCallback } = React;
    Gerçek projede bu veriler bir API'den gelir.
    ============================================================ */
 const YERLER = [
-  {
-    id: 1,
-    isim: "Mevlana Müzesi",
-    sehir: "Konya",
-    kategori: "Tarihi",
-    enlem: 37.8714,
-    boylam: 32.5050,
+  // ===== KONYA (mevcut, onem eklendi) =====
+  { id: 1, isim: "Mevlana Müzesi", sehir: "Konya", kategori: "Tarihi", enlem: 37.8714, boylam: 32.5050, onem: 5,
     aciklama: "Mevlana Celaleddin-i Rumi'nin türbesinin bulunduğu müze.",
-    detayli_bilgi: "13. yüzyılda inşa edilen yapı, Selçuklu mimarisinin en özgün örneklerinden biridir ve 'Yeşil Kubbe' (Kubbe-i Hadra) olarak bilinir. Rivayete göre Mevlana, vefatından önce dostlarına 'Ölümümüzden sonra mezarımızı yerde arama, o bizim gönüllerdedir' demiş; bugün de kubbenin altında yatan türbe, mezhep ve inanç ayrımı gözetmeksizin dünyanın dört bir yanından gezgini aynı çatı altında buluşturuyor. İçeride Mevlevi ayin araç gereçleri, el yazması eserler ve semahanenin sessizliği ziyaretçiyi karşılar. Her Aralık ayında düzenlenen Şeb-i Arus törenleri, Mevlana'nın 'Ölüm günümüz düğün günümüzdür' sözünü hâlâ yaşatıyor.",
-    gorsel: "https://picsum.photos/seed/mevlana/500/340"
-  },
-  {
-    id: 2,
-    isim: "Meşhur Etliekmek Evi",
-    sehir: "Konya",
-    kategori: "Meşhur Lezzetler",
-    enlem: 37.8750,
-    boylam: 32.4900,
+    detayli_bilgi: "13. yüzyılda inşa edilen yapı, Selçuklu mimarisinin en özgün örneklerinden biridir ve 'Yeşil Kubbe' olarak bilinir. Rivayete göre Mevlana, vefatından önce dostlarına 'Ölümümüzden sonra mezarımızı yerde arama, o bizim gönüllerdedir' demiş. Her Aralık ayında düzenlenen Şeb-i Arus törenleri dünyanın dört bir yanından ziyaretçi çeker.",
+    gorsel: "https://picsum.photos/seed/mevlana/500/340" },
+  { id: 2, isim: "Meşhur Etliekmek Evi", sehir: "Konya", kategori: "Meşhur Lezzetler", enlem: 37.8750, boylam: 32.4900, onem: 3,
     aciklama: "Konya'nın en eski taş fırınlarından birinde pişen ince hamurlu etliekmek.",
-    meshur_yemegi: "Kıyma ve özel baharat karışımıyla hazırlanan, taş fırında pişirilen ince hamurlu geleneksel Etliekmek ve Bıçak Arası.",
-    fiyat_segmenti: "$$",
-    gorsel: "https://picsum.photos/seed/etliekmek/500/340"
-  },
-  {
-    id: 11,
-    isim: "Meşhur Fırın Kebapçısı",
-    sehir: "Konya",
-    kategori: "Meşhur Lezzetler",
-    enlem: 37.8695,
-    boylam: 32.4845,
+    meshur_yemegi: "Kıyma ve özel baharat karışımıyla hazırlanan, taş fırında pişirilen ince hamurlu geleneksel Etliekmek ve Bıçak Arası.", fiyat_segmenti: "$$",
+    gorsel: "https://picsum.photos/seed/etliekmek/500/340" },
+  { id: 11, isim: "Meşhur Fırın Kebapçısı", sehir: "Konya", kategori: "Meşhur Lezzetler", enlem: 37.8695, boylam: 32.4845, onem: 3,
     aciklama: "Kuzu etinin taş fırında saatlerce pişirilmesiyle hazırlanan, Konya'nın tescilli lezzeti fırın kebabı.",
-    meshur_yemegi: "Kemikli kuzu etinin odun ateşli taş fırında 5-6 saat boyunca kendi suyunda pişirilmesiyle hazırlanan geleneksel Fırın Kebabı, yanında pilav ve cacıkla servis edilir.",
-    fiyat_segmenti: "$$",
-    gorsel: "https://picsum.photos/seed/firinkebap/500/340"
-  },
-  {
-    id: 3,
-    isim: "Alaeddin Tepesi",
-    sehir: "Konya",
-    kategori: "Tarihi",
-    enlem: 37.8720,
-    boylam: 32.4930,
+    meshur_yemegi: "Kemikli kuzu etinin odun ateşli taş fırında 5-6 saat pişirilmesiyle hazırlanan Fırın Kebabı.", fiyat_segmenti: "$$",
+    gorsel: "https://picsum.photos/seed/firinkebap/500/340" },
+  { id: 3, isim: "Alaeddin Tepesi", sehir: "Konya", kategori: "Tarihi", enlem: 37.8720, boylam: 32.4930, onem: 3,
     aciklama: "Şehrin ortasında yükselen, Selçuklu Sarayı kalıntılarını barındıran tarihi tepe.",
-    detayli_bilgi: "Konya'nın en eski yerleşim alanlarından biri olan bu höyük, Anadolu Selçuklu Devleti başkent olduğu dönemde saray ve kale yapılarına ev sahipliği yapmıştır. Sultan I. Alaeddin Keykubad'ın adını taşıyan tepede bugün hâlâ Alaeddin Camii ve bazı sultan türbeleri ayakta durur; yerel halk arasında tepenin altında henüz gün yüzüne çıkmamış saray odalarının bulunduğuna dair anlatılar hâlâ dilden dile dolaşır. Şehrin gürültüsünden birkaç metre yükseklikte, sekiz asırlık bir sessizliğe adım atmış olursunuz.",
-    gorsel: "https://picsum.photos/seed/alaeddin/500/340"
-  },
-  {
-    id: 4,
-    isim: "Konya Kültürpark",
-    sehir: "Konya",
-    kategori: "Eğlence",
-    enlem: 37.8600,
-    boylam: 32.4800,
+    detayli_bilgi: "Anadolu Selçuklu Devleti başkent olduğu dönemde saray ve kale yapılarına ev sahipliği yapmış bir höyük. Bugün Alaeddin Camii ve bazı sultan türbeleri ayaktadır.",
+    gorsel: "https://picsum.photos/seed/alaeddin/500/340" },
+  { id: 4, isim: "Konya Kültürpark", sehir: "Konya", kategori: "Eğlence", enlem: 37.8600, boylam: 32.4800, onem: 2,
     aciklama: "Aileler için piknik alanları, göletler ve akşam etkinlikleriyle şehrin nefes alanı.",
-    gorsel: "https://picsum.photos/seed/kulturpark/500/340"
-  },
-  {
-    id: 5,
-    isim: "Beyşehir Gölü",
-    sehir: "Konya",
-    kategori: "Doğal",
-    enlem: 37.6667,
-    boylam: 31.5333,
+    gorsel: "https://picsum.photos/seed/kulturpark/500/340" },
+  { id: 5, isim: "Beyşehir Gölü", sehir: "Konya", kategori: "Doğal", enlem: 37.6667, boylam: 31.5333, onem: 3,
     aciklama: "Türkiye'nin en büyük tatlı su göllerinden biri; kamp ve doğa yürüyüşü için ideal.",
-    gorsel: "https://picsum.photos/seed/beysehir/500/340"
-  },
-  {
-    id: 6,
-    isim: "Ayasofya",
-    sehir: "İstanbul",
-    kategori: "Tarihi",
-    enlem: 41.0086,
-    boylam: 28.9802,
+    gorsel: "https://picsum.photos/seed/beysehir/500/340" },
+
+  // ===== İSTANBUL =====
+  { id: 6, isim: "Ayasofya", sehir: "İstanbul", kategori: "Tarihi", enlem: 41.0086, boylam: 28.9802, onem: 5,
     aciklama: "1500 yıllık tarihiyle Bizans ve Osmanlı mirasını bir arada taşıyan anıtsal yapı.",
-    detayli_bilgi: "6. yüzyılda Bizans İmparatoru Justinianus tarafından inşa ettirilmiş; efsaneye göre imparator yapının tamamlandığı gün 'Süleyman, seni geçtim!' diyerek Kudüs'teki Süleyman Mabedi'ni kastetmiştir. 1453'te Fatih Sultan Mehmet şehri fethettiğinde ilk cuma namazını burada kıldırmış ve yapıyı camiye çevirmiştir. Sonrasında müze olarak hizmet vermiş, günümüzde yeniden ibadete açılmıştır. Dev kubbesi, havada asılıymış hissi veren mimarisi ve katman katman biriken mozaikleriyle dünya mimarlık tarihinin dönüm noktalarından biridir.",
-    gorsel: "https://picsum.photos/seed/ayasofya/500/340"
-  },
-  {
-    id: 7,
-    isim: "Karaköy Balık Ekmekçisi",
-    sehir: "İstanbul",
-    kategori: "Meşhur Lezzetler",
-    enlem: 41.0225,
-    boylam: 28.9744,
+    detayli_bilgi: "6. yüzyılda Bizans İmparatoru Justinianus tarafından inşa ettirilmiş; efsaneye göre imparator 'Süleyman, seni geçtim!' demiştir. 1453'te Fatih Sultan Mehmet tarafından camiye çevrilmiş, sonra müze olmuş, günümüzde yeniden ibadete açılmıştır.",
+    gorsel: "https://picsum.photos/seed/ayasofya/500/340" },
+  { id: 7, isim: "Karaköy Balık Ekmekçisi", sehir: "İstanbul", kategori: "Meşhur Lezzetler", enlem: 41.0225, boylam: 28.9744, onem: 3,
     aciklama: "Sahilde tezgahtan servis edilen taze balık ekmeğiyle ünlü esnaf lokantası.",
-    meshur_yemegi: "Odun ateşinde ızgara yapılan taze uskumru ile hazırlanan Balık Ekmek.",
-    fiyat_segmenti: "$",
-    gorsel: "https://picsum.photos/seed/balikekmek/500/340"
-  },
-  {
-    id: 8,
-    isim: "Kapadokya Balon Turu",
-    sehir: "Nevşehir",
-    kategori: "Eğlence",
-    enlem: 38.6300,
-    boylam: 34.8300,
+    meshur_yemegi: "Odun ateşinde ızgara yapılan taze uskumru ile hazırlanan Balık Ekmek.", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/balikekmek/500/340" },
+  { id: 100, isim: "Yerebatan Sarnıcı", sehir: "İstanbul", kategori: "Tarihi", enlem: 41.0084, boylam: 28.9779, onem: 5,
+    aciklama: "532 yılında inşa edilmiş, yüzlerce mermer sütunla ayakta duran dev yeraltı su sarnıcı.",
+    detayli_bilgi: "Bizans döneminde şehrin su ihtiyacını karşılamak için inşa edilen sarnıç, 336 sütunuyla adeta yeraltında bir katedrali andırır. İki sütun kaidesinde bulunan ters Medusa başları, sarnıcın en gizemli detaylarından biridir ve kökeni hâlâ tartışılır.",
+    gorsel: "https://picsum.photos/seed/yerebatan/500/340" },
+  { id: 101, isim: "Balat Renkli Sokakları", sehir: "İstanbul", kategori: "Eğlence", enlem: 41.0294, boylam: 28.9490, onem: 3, kesif: true,
+    aciklama: "Rengarenk cephe boyalı eski evleriyle son yıllarda keşfedilen fotoğrafçı gözdesi mahalle.",
+    gorsel: "https://picsum.photos/seed/balat/500/340" },
+
+  // ===== NEVŞEHİR / KAPADOKYA =====
+  { id: 8, isim: "Kapadokya Balon Turu", sehir: "Nevşehir", kategori: "Eğlence", enlem: 38.6300, boylam: 34.8300, onem: 4,
     aciklama: "Gün doğumunda peribacaları üzerinde sıcak hava balonu deneyimi.",
-    gorsel: "https://picsum.photos/seed/balon/500/340"
-  },
-  {
-    id: 9,
-    isim: "Ürgüp Testi Kebapçısı",
-    sehir: "Nevşehir",
-    kategori: "Meşhur Lezzetler",
-    enlem: 38.6310,
-    boylam: 34.9120,
+    gorsel: "https://picsum.photos/seed/balon/500/340" },
+  { id: 9, isim: "Ürgüp Testi Kebapçısı", sehir: "Nevşehir", kategori: "Meşhur Lezzetler", enlem: 38.6310, boylam: 34.9120, onem: 3,
     aciklama: "Kapaklı toprak testi içinde saatlerce pişirilen kebabıyla bölgenin klasiği.",
-    meshur_yemegi: "Toprak testi içinde odun ateşinde pişirilen Testi Kebabı.",
-    fiyat_segmenti: "$$$",
-    gorsel: "https://picsum.photos/seed/testikebap/500/340"
-  },
-  {
-    id: 10,
-    isim: "Düden Şelalesi",
-    sehir: "Antalya",
-    kategori: "Doğal",
-    enlem: 36.9204,
-    boylam: 30.7566,
+    meshur_yemegi: "Toprak testi içinde odun ateşinde pişirilen Testi Kebabı.", fiyat_segmenti: "$$$",
+    gorsel: "https://picsum.photos/seed/testikebap/500/340" },
+  { id: 102, isim: "Derinkuyu Yeraltı Şehri", sehir: "Nevşehir", kategori: "Tarihi", enlem: 38.3733, boylam: 34.7361, onem: 4, kesif: true,
+    aciklama: "Sekiz kat derinliğe inen, binlerce kişiyi barındırabilen dev yeraltı yerleşimi.",
+    detayli_bilgi: "İlk Hristiyanların Roma zulmünden saklanmak için genişlettiği düşünülen şehir, havalandırma bacaları, kiler, şarap mahzeni ve kiliseleriyle yer altında tam bir yaşam alanı sunar. Gizli tünel ağı yakın köylerdeki diğer yeraltı şehirlerine kadar uzanır.",
+    gorsel: "https://picsum.photos/seed/derinkuyu/500/340" },
+
+  // ===== ANTALYA =====
+  { id: 10, isim: "Düden Şelalesi", sehir: "Antalya", kategori: "Doğal", enlem: 36.9204, boylam: 30.7566, onem: 3,
     aciklama: "Kayalıklardan denize dökülen etkileyici görüntüsüyle şehrin doğal simgesi.",
-    gorsel: "https://picsum.photos/seed/duden/500/340"
-  }
+    gorsel: "https://picsum.photos/seed/duden/500/340" },
+  { id: 103, isim: "Kaleiçi", sehir: "Antalya", kategori: "Tarihi", enlem: 36.8850, boylam: 30.7056, onem: 5,
+    aciklama: "Dar taş sokakları, Osmanlı ve Roma dönemi yapılarıyla Antalya'nın tarihi kalbi.",
+    detayli_bilgi: "Roma İmparatoru Hadrianus'un şehri ziyareti onuruna inşa edilen Hadrian Kapısı'ndan girilen Kaleiçi, yüzyıllar boyunca farklı medeniyetlere ev sahipliği yapmış. Dar sokaklar arasında Osmanlı konakları, Selçuklu'dan kalma Yivli Minare ve antik liman iç içe geçer.",
+    gorsel: "https://picsum.photos/seed/kaleici/500/340" },
+  { id: 104, isim: "Antalya Piyazcısı", sehir: "Antalya", kategori: "Meşhur Lezzetler", enlem: 36.8969, boylam: 30.7133, onem: 3,
+    aciklama: "Tahinli, sarımsaklı yöresel piyazı ve şiş köftesiyle tanınan esnaf lokantası.",
+    meshur_yemegi: "Tahin ve sarımsak sosuyla hazırlanan Antalya usulü Piyaz, yanında şiş köfte ile servis edilir.", fiyat_segmenti: "$$",
+    gorsel: "https://picsum.photos/seed/piyaz/500/340" },
+
+  // ===== ADANA =====
+  { id: 110, isim: "Adana Kebapçısı", sehir: "Adana", kategori: "Meşhur Lezzetler", enlem: 37.0000, boylam: 35.3213, onem: 5,
+    aciklama: "Elde kıyılmış kuşbaşı etin şişte, közde pişirilmesiyle hazırlanan Türkiye'nin en ünlü kebabı.",
+    meshur_yemegi: "Acılı-acısız elde kıyılmış kuşbaşı etin şişe sarılıp közde pişirildiği Adana Kebap, yanında sumaklı soğan ile servis edilir.", fiyat_segmenti: "$$",
+    gorsel: "https://picsum.photos/seed/adanakebap/500/340" },
+  { id: 111, isim: "Taşköprü ve Sabancı Merkez Camii", sehir: "Adana", kategori: "Tarihi", enlem: 36.9914, boylam: 35.3308, onem: 3,
+    aciklama: "Roma döneminden kalma köprü ile Ortadoğu'nun en büyük camilerinden birinin bir arada olduğu manzara.",
+    detayli_bilgi: "MS 2. yüzyılda inşa edilen ve halen kullanılan Taşköprü, dünyanın en eski köprülerinden biri kabul edilir. Hemen yanında yükselen Sabancı Merkez Camii ise altı minaresiyle şehrin siluetine damga vurur.",
+    gorsel: "https://picsum.photos/seed/taskopru/500/340" },
+
+  // ===== ADIYAMAN =====
+  { id: 112, isim: "Nemrut Dağı", sehir: "Adıyaman", kategori: "Tarihi", enlem: 37.9811, boylam: 38.7411, onem: 5,
+    aciklama: "Zirvesinde dev tanrı heykel başlarının bulunduğu, gün doğumu manzarasıyla ünlü UNESCO Dünya Mirası.",
+    detayli_bilgi: "MÖ 1. yüzyılda Kommagene Kralı I. Antiochos tarafından kendi mezar-tapınağı olarak inşa ettirilmiş. 2.150 metre yükseklikte, zamanın yıprattığı dev taş başlar doğu ve batı teraslarına dağılmış halde gezgini karşılar. Gün doğumunu izlemek için gece yarısından itibaren tırmanış yapılır.",
+    gorsel: "https://picsum.photos/seed/nemrut/500/340" },
+
+  // ===== AFYONKARAHİSAR =====
+  { id: 113, isim: "Frig Vadisi", sehir: "Afyonkarahisar", kategori: "Doğal", enlem: 38.9500, boylam: 30.2000, onem: 3, kesif: true,
+    aciklama: "Kayalara oyulmuş antik Frig anıtları ve kaya evleriyle Kapadokya'ya benzeyen az bilinen vadi.",
+    gorsel: "https://picsum.photos/seed/frigvadisi/500/340" },
+  { id: 114, isim: "Afyon Sucuk-Kaymakçısı", sehir: "Afyonkarahisar", kategori: "Meşhur Lezzetler", enlem: 38.7507, boylam: 30.5567, onem: 3,
+    aciklama: "Tescilli Afyon sucuğu ve kaymağıyla şehrin en bilinen lezzet durağı.",
+    meshur_yemegi: "Baharatlı, tescilli Afyon Sucuğu ve manda sütünden yapılan yöresel Kaymak.", fiyat_segmenti: "$$",
+    gorsel: "https://picsum.photos/seed/afyonsucuk/500/340" },
+
+  // ===== AĞRI =====
+  { id: 115, isim: "İshak Paşa Sarayı", sehir: "Ağrı", kategori: "Tarihi", enlem: 39.5286, boylam: 44.0783, onem: 4,
+    aciklama: "Ağrı Dağı eteklerinde, Osmanlı-Selçuklu-Gürcü mimarisini harmanlayan taş saray.",
+    detayli_bilgi: "18. yüzyılda tamamlanan saray, 366 odasıyla bir yılın her gününe bir oda düştüğü söylenen bir efsaneye sahiptir. Doğubayazıt'ın hemen üzerinde, Ağrı Dağı'nı arkasına alan konumuyla Türkiye'nin en etkileyici siluetlerinden birini oluşturur.",
+    gorsel: "https://picsum.photos/seed/ishakpasa/500/340" },
+
+  // ===== AMASYA =====
+  { id: 116, isim: "Amasya Kral Kaya Mezarları", sehir: "Amasya", kategori: "Tarihi", enlem: 40.6539, boylam: 35.8464, onem: 4,
+    aciklama: "Yeşilırmak kıyısındaki Osmanlı evlerinin arkasında yükselen, kayaya oyulmuş Pontus kral mezarları.",
+    detayli_bilgi: "MÖ 4-1. yüzyıllar arasında Pontus krallarının gömüldüğü mezarlar, kayalık yamaca doğrudan oyularak inşa edilmiştir. Akşam ışıklandırıldığında, nehir kenarındaki tarihi Yalıboyu Evleri ile birlikte şehre masalsı bir görünüm katar.",
+    gorsel: "https://picsum.photos/seed/amasya/500/340" },
+
+  // ===== ANKARA =====
+  { id: 117, isim: "Anıtkabir", sehir: "Ankara", kategori: "Tarihi", enlem: 39.9251, boylam: 32.8369, onem: 5,
+    aciklama: "Cumhuriyet'in kurucusu Mustafa Kemal Atatürk'ün anıt mezarı ve müzesi.",
+    detayli_bilgi: "1953'te tamamlanan anıt mezar, Aslanlı Yol'un iki yanında sıralanan heykellerle ziyaretçiyi karşılar. Yanındaki müzede Kurtuluş Savaşı'na dair kişisel eşyalar ve belgeler sergilenir; her yıl milyonlarca kişi tarafından ziyaret edilir.",
+    gorsel: "https://picsum.photos/seed/anitkabir/500/340" },
+  { id: 118, isim: "Hamamönü", sehir: "Ankara", kategori: "Eğlence", enlem: 39.9440, boylam: 32.8619, onem: 3,
+    aciklama: "Restore edilmiş Osmanlı evleriyle kafe ve el sanatları dükkanlarının bir arada olduğu tarihi mahalle.",
+    gorsel: "https://picsum.photos/seed/hamamonu/500/340" },
+
+  // ===== ARDAHAN =====
+  { id: 119, isim: "Şeytan Kalesi (Posof)", sehir: "Ardahan", kategori: "Doğal", enlem: 41.1105, boylam: 42.7022, onem: 2, kesif: true,
+    aciklama: "Vadinin ortasında yükselen kaya kütlesi üzerine kurulu, ismini efsanelerden alan gizemli kale kalıntısı.",
+    gorsel: "https://picsum.photos/seed/seytankalesi/500/340" },
+
+  // ===== ARTVİN =====
+  { id: 120, isim: "Karagöl-Sahara Milli Parkı", sehir: "Artvin", kategori: "Doğal", enlem: 41.2500, boylam: 42.0500, onem: 3, kesif: true,
+    aciklama: "Şavşat'ta yer alan, gür ladin ormanlarıyla çevrili buzul gölü ve az bilinen doğa cenneti.",
+    gorsel: "https://picsum.photos/seed/karagol/500/340" },
+
+  // ===== AYDIN =====
+  { id: 121, isim: "Afrodisias Antik Kenti", sehir: "Aydın", kategori: "Tarihi", enlem: 37.7089, boylam: 28.7233, onem: 3, kesif: true,
+    aciklama: "Aşk ve güzellik tanrıçası Afrodit'e adanmış, heykeltıraşlık okuluyla ünlü az bilinen antik kent.",
+    detayli_bilgi: "UNESCO Dünya Mirası listesindeki kent, Roma döneminde heykeltıraşlık sanatının en önemli merkezlerinden biriydi. Geniş stadyumu, antik tiyatrosu ve Afrodit Tapınağı kalıntılarıyla Efes kadar kalabalık olmayan, sakin bir gezi imkânı sunar.",
+    gorsel: "https://picsum.photos/seed/afrodisias/500/340" },
+
+  // ===== BALIKESİR =====
+  { id: 122, isim: "Cunda Adası", sehir: "Balıkesir", kategori: "Doğal", enlem: 39.3208, boylam: 26.6858, onem: 4,
+    aciklama: "Rum mimarisi taş evleri, balık lokantaları ve gün batımıyla Ayvalık'ın gözde adası.",
+    gorsel: "https://picsum.photos/seed/cunda/500/340" },
+  { id: 123, isim: "Kaz Dağları Milli Parkı", sehir: "Balıkesir", kategori: "Doğal", enlem: 39.6667, boylam: 26.9000, onem: 3, kesif: true,
+    aciklama: "Antik çağda İda Dağı olarak anılan, endemik bitki örtüsü ve trekking rotalarıyla bilinen az kalabalık orman.",
+    gorsel: "https://picsum.photos/seed/kazdaglari/500/340" },
+
+  // ===== BARTIN =====
+  { id: 124, isim: "Bartın Tarihi Evleri (Kemerköprü)", sehir: "Bartın", kategori: "Tarihi", enlem: 41.6344, boylam: 32.3375, onem: 2, kesif: true,
+    aciklama: "Bartın Irmağı kıyısında sıralanan, Safranbolu'yu andıran ama çok daha az bilinen ahşap Osmanlı evleri.",
+    gorsel: "https://picsum.photos/seed/bartin/500/340" },
+
+  // ===== BATMAN =====
+  { id: 125, isim: "Hasankeyf", sehir: "Batman", kategori: "Tarihi", enlem: 37.7167, boylam: 41.4000, onem: 4, kesif: true,
+    aciklama: "Binlerce yıllık mağara evleri ve kale kalıntılarıyla, kısmen sular altında kalan efsanevi antik yerleşim.",
+    detayli_bilgi: "Dicle Nehri kıyısında 12.000 yıllık yerleşim geçmişine sahip Hasankeyf, Artuklu köprüsü kalıntısı ve kayalara oyulmuş binlerce mağara eviyle bilinir. Yeni baraj gölü nedeniyle eski yerleşimin büyük kısmı sular altında kalmış, tarihi yapıların bir kısmı yakındaki yeni alana taşınmıştır.",
+    gorsel: "https://picsum.photos/seed/hasankeyf/500/340" },
+
+  // ===== BAYBURT =====
+  { id: 126, isim: "Bayburt Kalesi", sehir: "Bayburt", kategori: "Tarihi", enlem: 40.2552, boylam: 40.2249, onem: 2, kesif: true,
+    aciklama: "Çoruh Vadisi'ne hakim tepede, Roma dönemine uzanan köklerle ayakta duran az ziyaret edilen kale.",
+    gorsel: "https://picsum.photos/seed/bayburt/500/340" },
+
+  // ===== BİLECİK =====
+  { id: 127, isim: "Söğüt (Osmanlı'nın Kuruluş Yeri)", sehir: "Bilecik", kategori: "Tarihi", enlem: 40.1500, boylam: 29.9833, onem: 3, kesif: true,
+    aciklama: "Osmanlı Beyliği'nin kurulduğu, Ertuğrul Gazi'nin türbesinin bulunduğu tarihi ilçe.",
+    gorsel: "https://picsum.photos/seed/sogut/500/340" },
+
+  // ===== BİNGÖL =====
+  { id: 128, isim: "Bingöl Yaylaları", sehir: "Bingöl", kategori: "Doğal", enlem: 39.0626, boylam: 40.7696, onem: 2, kesif: true,
+    aciklama: "Binlerce göletiyle 'bin göl' adını hak eden, yaz aylarında çadır turizmiyle canlanan yayla platosu.",
+    gorsel: "https://picsum.photos/seed/bingol/500/340" },
+
+  // ===== BİTLİS =====
+  { id: 129, isim: "Nemrut Krater Gölü", sehir: "Bitlis", kategori: "Doğal", enlem: 38.6333, boylam: 42.2333, onem: 3, kesif: true,
+    aciklama: "Sönmüş bir yanardağın kraterinde oluşan, Adıyaman'daki Nemrut'la karıştırılmaması gereken masmavi göl.",
+    gorsel: "https://picsum.photos/seed/nemrutgolu/500/340" },
+
+  // ===== BOLU =====
+  { id: 130, isim: "Abant Gölü", sehir: "Bolu", kategori: "Doğal", enlem: 40.6000, boylam: 31.2833, onem: 4,
+    aciklama: "Çam ormanlarıyla çevrili, göl kenarında yürüyüş parkurlarıyla ünlü klasik doğa kaçamağı.",
+    gorsel: "https://picsum.photos/seed/abant/500/340" },
+
+  // ===== BURDUR =====
+  { id: 131, isim: "Salda Gölü", sehir: "Burdur", kategori: "Doğal", enlem: 37.5500, boylam: 29.6833, onem: 4, kesif: true,
+    aciklama: "Beyaz kumsalı ve tirkuaz rengiyle 'Türkiye'nin Maldivleri' olarak anılan jeolojik açıdan eşsiz göl.",
+    gorsel: "https://picsum.photos/seed/salda/500/340" },
+
+  // ===== BURSA =====
+  { id: 132, isim: "Uludağ", sehir: "Bursa", kategori: "Doğal", enlem: 40.0900, boylam: 29.1100, onem: 4,
+    aciklama: "Teleferikle çıkılan, kayak merkezi ve yaz-kış manzarasıyla Bursa'nın simge dağı.",
+    gorsel: "https://picsum.photos/seed/uludag/500/340" },
+  { id: 133, isim: "Cumalıkızık Köyü", sehir: "Bursa", kategori: "Tarihi", enlem: 40.1961, boylam: 29.2333, onem: 3, kesif: true,
+    aciklama: "Osmanlı'nın ilk yerleşimlerinden biri olan, ahşap-kerpiç evleriyle zamanda donmuş köy.",
+    gorsel: "https://picsum.photos/seed/cumalikizik/500/340" },
+  { id: 134, isim: "İskender Kebapçısı", sehir: "Bursa", kategori: "Meşhur Lezzetler", enlem: 40.1826, boylam: 29.0665, onem: 4,
+    aciklama: "İskender kebabının doğduğu şehirde, tereyağı ve domates sosuyla servis edilen orijinal tarif.",
+    meshur_yemegi: "İnce dilimlenmiş döner etin pide üzerine, tereyağı ve domates sosuyla, yanında yoğurtla servis edildiği İskender Kebap.", fiyat_segmenti: "$$",
+    gorsel: "https://picsum.photos/seed/iskender/500/340" },
+
+  // ===== ÇANAKKALE =====
+  { id: 135, isim: "Truva Antik Kenti", sehir: "Çanakkale", kategori: "Tarihi", enlem: 39.9575, boylam: 26.2389, onem: 5,
+    aciklama: "Homeros'un İlyada destanına konu olan, dokuz katmanlı efsanevi antik kent.",
+    detayli_bilgi: "MÖ 3000'lere uzanan dokuz farklı yerleşim katmanı barındıran Truva, ünlü Truva Atı efsanesinin geçtiği yer olarak bilinir. Kent girişindeki dev ahşap at heykeli, ziyaretçilerin en çok fotoğraf çektirdiği nokta.",
+    gorsel: "https://picsum.photos/seed/truva/500/340" },
+  { id: 136, isim: "Assos Antik Kenti", sehir: "Çanakkale", kategori: "Tarihi", enlem: 39.4903, boylam: 26.3389, onem: 3, kesif: true,
+    aciklama: "Filozof Aristoteles'in ders verdiği, denize nazır tapınak kalıntılarıyla ünlü sakin antik liman kenti.",
+    gorsel: "https://picsum.photos/seed/assos/500/340" },
+
+  // ===== ÇANKIRI =====
+  { id: 137, isim: "İnözü Vadisi Tuz Mağarası", sehir: "Çankırı", kategori: "Doğal", enlem: 40.6000, boylam: 33.6167, onem: 2, kesif: true,
+    aciklama: "Dünyanın en büyük tuz mağaralarından biri; kanyonlar ve mağaralarla dolu az bilinen vadi.",
+    gorsel: "https://picsum.photos/seed/cankiri/500/340" },
+
+  // ===== ÇORUM =====
+  { id: 138, isim: "Hattuşa Antik Kenti", sehir: "Çorum", kategori: "Tarihi", enlem: 40.0181, boylam: 34.6153, onem: 4,
+    aciklama: "Hitit İmparatorluğu'nun başkenti, dev taş surları ve Aslanlı Kapı'sıyla UNESCO Dünya Mirası.",
+    detayli_bilgi: "MÖ 2. binyılda Hitit İmparatorluğu'na başkentlik yapan Hattuşa, 6 kilometrelik surları ve içindeki Büyük Tapınak kalıntılarıyla Anadolu'nun en önemli arkeolojik alanlarından biridir. Yakınındaki Yazılıkaya açık hava tapınağında kayalara oyulmuş tanrı kabartmaları görülebilir.",
+    gorsel: "https://picsum.photos/seed/hattusa/500/340" },
+  { id: 139, isim: "Çorum Leblebicisi", sehir: "Çorum", kategori: "Meşhur Lezzetler", enlem: 40.5506, boylam: 34.9556, onem: 3,
+    aciklama: "Yüzyıllardır aynı yöntemle kavrulan, coğrafi işaretli Çorum leblebisinin geleneksel dükkanı.",
+    meshur_yemegi: "Özel toprakta yetişen nohuttan üretilen, tuzlu ve sade çeşitleriyle tescilli Çorum Leblebisi.", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/leblebi/500/340" },
+
+  // ===== DENİZLİ =====
+  { id: 140, isim: "Pamukkale Travertenleri", sehir: "Denizli", kategori: "Doğal", enlem: 37.9203, boylam: 29.1211, onem: 5,
+    aciklama: "Kalsiyum karbonat birikintileriyle oluşan pamuk beyazı teraslar ve üzerindeki antik Hierapolis kenti.",
+    detayli_bilgi: "Binlerce yıldır akan sıcak su kaynaklarının bıraktığı kalsiyum tortularıyla oluşan beyaz travertenler, tepede kurulu antik Hierapolis kentinin kalıntılarıyla birleşir. Roma döneminde şifa amaçlı kullanılan bu sular, günümüzde de sağlık turizminin merkezi.",
+    gorsel: "https://picsum.photos/seed/pamukkale/500/340" },
+
+  // ===== DİYARBAKIR =====
+  { id: 141, isim: "Diyarbakır Surları", sehir: "Diyarbakır", kategori: "Tarihi", enlem: 37.9144, boylam: 40.2306, onem: 5,
+    aciklama: "Çin Seddi'nden sonra dünyanın en uzun ikinci surları kabul edilen, siyah bazalt taşlı dev kale duvarları.",
+    detayli_bilgi: "5.8 kilometre uzunluğundaki surlar, Roma döneminden itibaren farklı medeniyetler tarafından güçlendirilmiş. Burçlarındaki kabartmalar ve kitabeler, kentin çok katmanlı tarihine tanıklık eder. Surların üzerinden Dicle Vadisi'nin geniş manzarası izlenebilir.",
+    gorsel: "https://picsum.photos/seed/diyarbakirsur/500/340" },
+  { id: 142, isim: "Diyarbakır Künefecisi", sehir: "Diyarbakır", kategori: "Meşhur Lezzetler", enlem: 37.9144, boylam: 40.2100, onem: 3,
+    aciklama: "Mevsiminde şehrin meşhur karpuzu, yıl boyu ise sıcak künefesiyle bilinen esnaf durağı.",
+    meshur_yemegi: "İnce tel kadayıf arasına peynir konularak pişirilen, şerbetli sıcak Künefe.", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/kunefe/500/340" },
+
+  // ===== DÜZCE =====
+  { id: 143, isim: "Efteni Gölü", sehir: "Düzce", kategori: "Doğal", enlem: 40.8167, boylam: 31.0500, onem: 2, kesif: true,
+    aciklama: "Kuş gözlemciliği için ideal, sazlıklarla çevrili sakin ve az bilinen sulak alan.",
+    gorsel: "https://picsum.photos/seed/efteni/500/340" },
+
+  // ===== EDİRNE =====
+  { id: 144, isim: "Selimiye Camii", sehir: "Edirne", kategori: "Tarihi", enlem: 41.6772, boylam: 26.5556, onem: 5,
+    aciklama: "Mimar Sinan'ın 'ustalık eserim' dediği, Osmanlı mimarisinin zirvesi kabul edilen cami.",
+    detayli_bilgi: "Mimar Sinan'ın 80'li yaşlarında tamamladığı yapı, kendi ifadesiyle 'ustalık dönemi eseri' olarak anılır. Kubbesi, Ayasofya'nınkinden daha geniş çaplı olacak şekilde tasarlanmış; dört ince minaresi kilometrelerce uzaktan görülebilir. UNESCO Dünya Mirası listesindedir.",
+    gorsel: "https://picsum.photos/seed/selimiye/500/340" },
+
+  // ===== ELAZIĞ =====
+  { id: 145, isim: "Harput Kalesi", sehir: "Elazığ", kategori: "Tarihi", enlem: 38.6833, boylam: 39.2667, onem: 3,
+    aciklama: "Bin yıllık tarihi taş evleri ve eğri minaresiyle ünlü, şehrin eski yerleşim merkezi.",
+    gorsel: "https://picsum.photos/seed/harput/500/340" },
+
+  // ===== ERZİNCAN =====
+  { id: 146, isim: "Girlevik Şelalesi", sehir: "Erzincan", kategori: "Doğal", enlem: 39.6500, boylam: 39.3833, onem: 2, kesif: true,
+    aciklama: "Kayalıklardan gürül gürül dökülen, çevresindeki yeşilliklerle piknik için tercih edilen şelale.",
+    gorsel: "https://picsum.photos/seed/girlevik/500/340" },
+
+  // ===== ERZURUM =====
+  { id: 147, isim: "Çifte Minareli Medrese", sehir: "Erzurum", kategori: "Tarihi", enlem: 39.9080, boylam: 41.2769, onem: 4,
+    aciklama: "İnce işçilikli taş oymacılığı ve iki minaresiyle Selçuklu mimarisinin en dikkat çekici eserlerinden.",
+    detayli_bilgi: "13. yüzyılda inşa edilen medrese, cephesindeki hayat ağacı, çift başlı kartal ve geometrik motifli taş işçiliğiyle Selçuklu sanatının doruk noktalarından biri kabul edilir. Şehir merkezinde, kışın kar altında ayrı bir güzellik kazanır.",
+    gorsel: "https://picsum.photos/seed/ciftemin/500/340" },
+  { id: 148, isim: "Erzurum Cağ Kebapçısı", sehir: "Erzurum", kategori: "Meşhur Lezzetler", enlem: 39.9055, boylam: 41.2658, onem: 4,
+    aciklama: "Yatay şişte pişirilen, ince dilimler halinde servis edilen orijinal cağ kebabının memleketi.",
+    meshur_yemegi: "Kuzu etinin yatay şişte odun ateşinde pişirilip ince dilimlenerek şişe geçirildiği Cağ Kebabı.", fiyat_segmenti: "$$",
+    gorsel: "https://picsum.photos/seed/cagkebap/500/340" },
+
+  // ===== ESKİŞEHİR =====
+  { id: 149, isim: "Odunpazarı Evleri", sehir: "Eskişehir", kategori: "Tarihi", enlem: 39.7767, boylam: 30.5206, onem: 4,
+    aciklama: "Renkli cumbalı Osmanlı evleri, dar sokakları ve müzeleriyle şehrin tarihi ve sanatsal merkezi.",
+    gorsel: "https://picsum.photos/seed/odunpazari/500/340" },
+
+  // ===== GAZİANTEP =====
+  { id: 150, isim: "Zeugma Mozaik Müzesi", sehir: "Gaziantep", kategori: "Tarihi", enlem: 37.0833, boylam: 37.3833, onem: 5,
+    aciklama: "Dünyanın en büyük mozaik müzesi; Fırat kıyısındaki antik Zeugma kentinden çıkarılan eserleri barındırır.",
+    detayli_bilgi: "Baraj suları altında kalmadan önce kurtarılan mozaikler arasında en ünlüsü 'Çingene Kızı' portresidir. Roma dönemi villalarının taban süslemeleri olan bu mozaikler, renk canlılığı ve işçilik detaylarıyla dünya çapında hayranlık uyandırır.",
+    gorsel: "https://picsum.photos/seed/zeugma/500/340" },
+  { id: 151, isim: "Gaziantep Baklavacısı", sehir: "Gaziantep", kategori: "Meşhur Lezzetler", enlem: 37.0662, boylam: 37.3833, onem: 5,
+    aciklama: "Antep fıstığıyla hazırlanan, coğrafi işaretli baklavanın anavatanındaki usta dükkan.",
+    meshur_yemegi: "40 kat yufka ve bol Antep fıstığıyla hazırlanan, şerbetli geleneksel Antep Baklavası.", fiyat_segmenti: "$$",
+    gorsel: "https://picsum.photos/seed/baklava/500/340" },
+
+  // ===== GİRESUN =====
+  { id: 152, isim: "Giresun Adası", sehir: "Giresun", kategori: "Doğal", enlem: 40.9167, boylam: 38.4000, onem: 2, kesif: true,
+    aciklama: "Karadeniz'in tek doğal adası; antik dönem efsaneleri ve deniz manzarasıyla az bilinen bir durak.",
+    gorsel: "https://picsum.photos/seed/giresunadasi/500/340" },
+
+  // ===== GÜMÜŞHANE =====
+  { id: 153, isim: "Karaca Mağarası", sehir: "Gümüşhane", kategori: "Doğal", enlem: 40.4667, boylam: 39.4833, onem: 2, kesif: true,
+    aciklama: "Sarkıt ve dikitleriyle süslenmiş, 1970'lerde keşfedilen az ziyaret edilen doğal mağara.",
+    gorsel: "https://picsum.photos/seed/karacamagara/500/340" },
+
+  // ===== HAKKARİ =====
+  { id: 154, isim: "Cilo Dağları ve Sat Gölleri", sehir: "Hakkari", kategori: "Doğal", enlem: 37.5833, boylam: 44.0000, onem: 2, kesif: true,
+    aciklama: "Türkiye'nin en yüksek dağ silsilelerinden biri; buzul gölleri ve el değmemiş doğasıyla dağcıların gizli cenneti.",
+    gorsel: "https://picsum.photos/seed/cilodaglari/500/340" },
+
+  // ===== HATAY =====
+  { id: 155, isim: "Habib-i Neccar Camii", sehir: "Hatay", kategori: "Tarihi", enlem: 36.2000, boylam: 36.1600, onem: 4,
+    aciklama: "Anadolu'nun ilk camisi kabul edilen, çok dinli tarihiyle Hatay'ın hoşgörü simgesi.",
+    detayli_bilgi: "Aynı yapının bünyesinde cami ve kilisenin bir arada bulunduğu söylenen bu mekân, Hatay'ın farklı din ve kültürlerin yüzyıllardır iç içe yaşadığı kimliğini simgeler. İçindeki mağara, Hz. İsa'nın havarilerinden bazılarının saklandığı yer olarak anlatılır.",
+    gorsel: "https://picsum.photos/seed/habibneccar/500/340" },
+  { id: 156, isim: "Hatay Künefecisi", sehir: "Hatay", kategori: "Meşhur Lezzetler", enlem: 36.2023, boylam: 36.1613, onem: 5,
+    aciklama: "Özel 'künefelik peyniri' ile hazırlanan orijinal Hatay künefesinin en bilinen adresi.",
+    meshur_yemegi: "İnce tel kadayıf arasına özel künefelik peynir konularak pişirilen, şerbetli Hatay Künefesi.", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/hataykunefe/500/340" },
+
+  // ===== IĞDIR =====
+  { id: 157, isim: "Nuh'un Gemisi Milli Parkı", sehir: "Iğdır", kategori: "Doğal", enlem: 39.8000, boylam: 44.0333, onem: 2, kesif: true,
+    aciklama: "Ağrı Dağı eteklerinde, gemi formuna benzeyen kaya oluşumuyla efsanelere konu olan az bilinen park.",
+    gorsel: "https://picsum.photos/seed/nuhungemisi/500/340" },
+
+  // ===== ISPARTA =====
+  { id: 158, isim: "Isparta Gül Bahçeleri", sehir: "Isparta", kategori: "Doğal", enlem: 37.7833, boylam: 30.5667, onem: 3,
+    aciklama: "Mayıs-Haziran ayında pembeye bürünen, gül yağı üretiminin dünya merkezlerinden biri.",
+    gorsel: "https://picsum.photos/seed/ispartagul/500/340" },
+
+  // ===== İZMİR =====
+  { id: 159, isim: "Efes Antik Kenti", sehir: "İzmir", kategori: "Tarihi", enlem: 37.9396, boylam: 27.3416, onem: 5,
+    aciklama: "Antik dünyanın en iyi korunmuş kentlerinden biri; Celsus Kütüphanesi ve büyük tiyatrosuyla ünlü.",
+    detayli_bilgi: "Roma döneminde 250 bin nüfusuyla bölgenin en önemli liman kentlerinden biri olan Efes, mermer caddesi, Celsus Kütüphanesi cephesi ve 25 bin kişilik antik tiyatrosuyla dünyanın en çok ziyaret edilen antik kentlerinden biridir. Yakınındaki Meryem Ana Evi de önemli bir hac merkezidir.",
+    gorsel: "https://picsum.photos/seed/efes/500/340" },
+  { id: 160, isim: "Kordon ve Saat Kulesi", sehir: "İzmir", kategori: "Eğlence", enlem: 38.4189, boylam: 27.1287, onem: 4,
+    aciklama: "Körfez manzaralı sahil yolu ve şehrin simgesi haline gelen tarihi saat kulesi.",
+    gorsel: "https://picsum.photos/seed/saatkulesi/500/340" },
+  { id: 161, isim: "Boyozcu ve Kumrucu", sehir: "İzmir", kategori: "Meşhur Lezzetler", enlem: 38.4237, boylam: 27.1428, onem: 3,
+    aciklama: "Sabah kahvaltısının vazgeçilmezi boyoz ve gevrek çeşitleriyle tanınan esnaf fırını.",
+    meshur_yemegi: "Tahin yağı ile hazırlanan katmerli hamur işi Boyoz ve susamlı Gevrek (İzmir simidi).", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/boyoz/500/340" },
+
+  // ===== KAHRAMANMARAŞ =====
+  { id: 162, isim: "Maraş Dövme Dondurmacısı", sehir: "Kahramanmaraş", kategori: "Meşhur Lezzetler", enlem: 37.5753, boylam: 36.9228, onem: 4,
+    aciklama: "Salep ve keçi sütüyle uzun uzun dövülerek yapılan, kaşıkla değil bıçakla kesilen meşhur dondurma.",
+    meshur_yemegi: "Keçi sütü ve salepten yapılan, elastik dokusuyla bıçakla kesilebilen geleneksel Maraş Dondurması.", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/marasdondurma/500/340" },
+
+  // ===== KARABÜK =====
+  { id: 163, isim: "Safranbolu Evleri", sehir: "Karabük", kategori: "Tarihi", enlem: 41.2500, boylam: 32.6833, onem: 5,
+    aciklama: "Osmanlı dönemi ahşap konaklarıyla zamanda donmuş, UNESCO Dünya Mirası listesindeki kasaba.",
+    detayli_bilgi: "18-19. yüzyıllardan kalma yaklaşık 2.000 ahşap konak, dar taş kaldırımlı sokaklar arasında hâlâ ayakta durur. Kırıkkale-Osmanlı ticaret yolunun önemli bir durağı olan kasaba, safran üretimiyle de ününü sürdürür ve her mevsim farklı bir atmosfer sunar.",
+    gorsel: "https://picsum.photos/seed/safranbolu/500/340" },
+
+  // ===== KARAMAN =====
+  { id: 164, isim: "Karamanoğlu Mehmet Bey Türbesi", sehir: "Karaman", kategori: "Tarihi", enlem: 37.1811, boylam: 33.2150, onem: 2,
+    aciklama: "Türkçeyi resmi dil ilan eden beyliğin kurucusuna ait, sade ama anlamlı türbe.",
+    gorsel: "https://picsum.photos/seed/karaman/500/340" },
+
+  // ===== KARS =====
+  { id: 165, isim: "Ani Ören Yeri", sehir: "Kars", kategori: "Tarihi", enlem: 40.5075, boylam: 43.5717, onem: 5, kesif: true,
+    aciklama: "Bin bir kilise şehri olarak anılan, ıssız ovada terk edilmiş ortaçağ Ermeni-Selçuklu başkenti.",
+    detayli_bilgi: "Orta Çağ'da 'bin bir kilisenin şehri' olarak anılan Ani, Bagratlı Krallığı'nın başkentliğini yapmış, sonrasında depremler ve göç dalgalarıyla tamamen terk edilmiştir. Bugün Ermenistan sınırındaki ıssız ovada, kilise ve katedral kalıntıları rüzgârla baş başa kalmış vaziyette gezgini karşılar.",
+    gorsel: "https://picsum.photos/seed/ani/500/340" },
+
+  // ===== KASTAMONU =====
+  { id: 166, isim: "Kastamonu Kalesi ve Konak Evleri", sehir: "Kastamonu", kategori: "Tarihi", enlem: 41.3887, boylam: 33.7827, onem: 3,
+    aciklama: "Bizans dönemine uzanan kale ve çevresindeki tarihi Osmanlı konaklarıyla korunmuş şehir dokusu.",
+    gorsel: "https://picsum.photos/seed/kastamonu/500/340" },
+
+  // ===== KAYSERİ =====
+  { id: 167, isim: "Erciyes Dağı", sehir: "Kayseri", kategori: "Doğal", enlem: 38.5225, boylam: 35.4425, onem: 4,
+    aciklama: "3.900 metreye yaklaşan sönmüş yanardağ; kışın kayak, yazın dağcılık merkezi.",
+    gorsel: "https://picsum.photos/seed/erciyes/500/340" },
+  { id: 168, isim: "Kayseri Pastırma-Sucukçusu", sehir: "Kayseri", kategori: "Meşhur Lezzetler", enlem: 38.7312, boylam: 35.4787, onem: 4,
+    aciklama: "Çemenle kaplanıp kurutulan geleneksel pastırma ve sucuğun asırlık üretim merkezi.",
+    meshur_yemegi: "Çemen, kırmızıbiber ve sarımsak karışımıyla kaplanıp kurutulan tescilli Kayseri Pastırması.", fiyat_segmenti: "$$",
+    gorsel: "https://picsum.photos/seed/pastirma/500/340" },
+
+  // ===== KIRIKKALE =====
+  { id: 169, isim: "Delice Kanyonu", sehir: "Kırıkkale", kategori: "Doğal", enlem: 39.7500, boylam: 33.8500, onem: 1, kesif: true,
+    aciklama: "Delice Irmağı'nın oyduğu, henüz keşfedilmemiş sayılabilecek sessiz bir kanyon vadisi.",
+    gorsel: "https://picsum.photos/seed/delice/500/340" },
+
+  // ===== KIRKLARELİ =====
+  { id: 170, isim: "Dupnisa Mağarası", sehir: "Kırklareli", kategori: "Doğal", enlem: 41.8667, boylam: 27.5833, onem: 2, kesif: true,
+    aciklama: "Trakya'nın en büyük mağara sistemlerinden biri; içinden dere geçen az bilinen doğal oluşum.",
+    gorsel: "https://picsum.photos/seed/dupnisa/500/340" },
+
+  // ===== KIRŞEHİR =====
+  { id: 171, isim: "Ahi Evran Külliyesi", sehir: "Kırşehir", kategori: "Tarihi", enlem: 39.1425, boylam: 34.1709, onem: 2,
+    aciklama: "Ahilik teşkilatının kurucusuna ait türbe ve külliye; esnaf ahlakının doğduğu topraklar.",
+    gorsel: "https://picsum.photos/seed/ahievran/500/340" },
+
+  // ===== KİLİS =====
+  { id: 172, isim: "Kilis Zeytinyağcısı", sehir: "Kilis", kategori: "Meşhur Lezzetler", enlem: 36.7184, boylam: 37.1212, onem: 2, kesif: true,
+    aciklama: "Soğuk sıkım zeytinyağı ve 'öşünü' adlı yöresel etli çöreğiyle bilinen az tanınan lezzet durağı.",
+    meshur_yemegi: "İçine kıyma, ceviz ve nar ekşisi konularak hazırlanan yöresel hamur işi Öşünü.", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/kilis/500/340" },
+
+  // ===== KOCAELİ =====
+  { id: 173, isim: "Kartepe Teleferik", sehir: "Kocaeli", kategori: "Eğlence", enlem: 40.7500, boylam: 30.0500, onem: 2,
+    aciklama: "İzmit Körfezi'nin kuş bakışı manzarasını sunan, kış aylarında kayak imkânı da olan tesis.",
+    gorsel: "https://picsum.photos/seed/kartepe/500/340" },
+
+  // ===== KÜTAHYA =====
+  { id: 174, isim: "Kütahya Çini Atölyeleri", sehir: "Kütahya", kategori: "Tarihi", enlem: 39.4167, boylam: 29.9833, onem: 3,
+    aciklama: "Yüzyıllardır süren çinicilik geleneğinin yaşatıldığı, elde boyanan desenleriyle ünlü atölyeler.",
+    gorsel: "https://picsum.photos/seed/kutahyacini/500/340" },
+
+  // ===== MALATYA =====
+  { id: 175, isim: "Malatya Kayısıcısı", sehir: "Malatya", kategori: "Meşhur Lezzetler", enlem: 38.3552, boylam: 38.3095, onem: 4,
+    aciklama: "Dünya kayısı üretiminin başkenti; kurusundan reçeline geniş bir yelpazede yöresel tatlar.",
+    meshur_yemegi: "Güneşte doğal yöntemlerle kurutulan, coğrafi işaretli Malatya Kayısısı ve kayısı kurusu tatlıları.", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/kayisi/500/340" },
+
+  // ===== MANİSA =====
+  { id: 176, isim: "Sardes Antik Kenti", sehir: "Manisa", kategori: "Tarihi", enlem: 38.4833, boylam: 28.0333, onem: 3, kesif: true,
+    aciklama: "Kral Krezüs'ün efsanevi zenginliğiyle anılan Lidya Krallığı'nın az bilinen başkenti.",
+    detayli_bilgi: "'Krezüs kadar zengin' deyiminin kaynağı olan Lidya Kralı Krezüs'ün başkentiydi. Dev Artemis Tapınağı sütunları ve antik gymnasion kalıntıları, Efes'e kıyasla çok daha sakin bir gezi imkânı sunar.",
+    gorsel: "https://picsum.photos/seed/sardes/500/340" },
+
+  // ===== MARDİN =====
+  { id: 177, isim: "Mardin Eski Şehir", sehir: "Mardin", kategori: "Tarihi", enlem: 37.3212, boylam: 40.7245, onem: 5,
+    aciklama: "Sarı taştan yapılmış konaklarıyla Mezopotamya ovasına bakan, zamanı durdurmuş tarihi kent.",
+    detayli_bilgi: "Binlerce yıllık çok dinli ve çok kültürlü tarihiyle Mardin, taş oymacılığındaki ustalığın en güzel örneklerini sokak sokak sergiler. Şehrin en tepesindeki kaleden Mezopotamya ovasının ve Suriye sınırının uçsuz bucaksız manzarası izlenir.",
+    gorsel: "https://picsum.photos/seed/mardin/500/340" },
+  { id: 178, isim: "Deyrulzafaran Manastırı", sehir: "Mardin", kategori: "Tarihi", enlem: 37.2833, boylam: 40.7833, onem: 3, kesif: true,
+    aciklama: "1600 yıllık geçmişiyle Süryani Ortodoks Kilisesi'nin uzun süre merkezliğini yapmış az bilinen manastır.",
+    gorsel: "https://picsum.photos/seed/deyrulzafaran/500/340" },
+
+  // ===== MERSİN =====
+  { id: 179, isim: "Kızkalesi", sehir: "Mersin", kategori: "Tarihi", enlem: 36.4547, boylam: 34.1494, onem: 4,
+    aciklama: "Denizin ortasında küçük bir adaya kurulu, ortaçağdan kalma etkileyici kale.",
+    gorsel: "https://picsum.photos/seed/kizkalesi/500/340" },
+  { id: 180, isim: "Mersin Tantunicisi", sehir: "Mersin", kategori: "Meşhur Lezzetler", enlem: 36.8000, boylam: 34.6333, onem: 3,
+    aciklama: "İnce dilimlenmiş etin özel baharatlarla hızlı pişirildiği, Mersin'in doğduğu yerdeki orijinal tarif.",
+    meshur_yemegi: "İnce dilimlenmiş dana etinin tereyağında, limon ve baharatla hızlıca pişirildiği Mersin Tantunisi.", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/tantuni/500/340" },
+
+  // ===== MUĞLA =====
+  { id: 181, isim: "Bodrum Kalesi", sehir: "Muğla", kategori: "Tarihi", enlem: 37.0343, boylam: 27.4297, onem: 5,
+    aciklama: "St. Jean Şövalyeleri tarafından inşa edilen, liman manzaralı ortaçağ kalesi.",
+    gorsel: "https://picsum.photos/seed/bodrumkalesi/500/340" },
+  { id: 182, isim: "Ölüdeniz", sehir: "Muğla", kategori: "Doğal", enlem: 36.5507, boylam: 29.1167, onem: 5,
+    aciklama: "Turkuaz-lagün manzarası ve yamaç paraşütüyle dünyaca ünlü koy.",
+    gorsel: "https://picsum.photos/seed/oludeniz/500/340" },
+  { id: 183, isim: "Kayaköy Hayalet Köyü", sehir: "Muğla", kategori: "Tarihi", enlem: 36.5794, boylam: 29.0983, onem: 3, kesif: true,
+    aciklama: "1923 nüfus mübadelesiyle boşaltılan, yüzlerce taş evin yamaçta terk edilmiş halde durduğu köy.",
+    gorsel: "https://picsum.photos/seed/kayakoy/500/340" },
+
+  // ===== MUŞ =====
+  { id: 184, isim: "Malazgirt Zafer Anıtı", sehir: "Muş", kategori: "Tarihi", enlem: 39.1464, boylam: 42.5378, onem: 3,
+    aciklama: "1071'deki tarihi zaferin anısına inşa edilen, Anadolu'nun kapılarını açan savaşın anıtı.",
+    gorsel: "https://picsum.photos/seed/malazgirt/500/340" },
+
+  // ===== NİĞDE =====
+  { id: 185, isim: "Eski Gümüşler Manastırı", sehir: "Niğde", kategori: "Tarihi", enlem: 38.0000, boylam: 34.7000, onem: 2, kesif: true,
+    aciklama: "Kayaya oyulmuş, freskleri hâlâ canlı renklerini koruyan az bilinen Bizans dönemi manastırı.",
+    gorsel: "https://picsum.photos/seed/gumusler/500/340" },
+
+  // ===== AKSARAY =====
+  { id: 186, isim: "Ihlara Vadisi", sehir: "Aksaray", kategori: "Doğal", enlem: 38.2597, boylam: 34.3308, onem: 4,
+    aciklama: "Melendiz Irmağı'nın oyduğu 14 km'lik kanyon; içinde kayaya oyulmuş yüzlerce kilise barındırır.",
+    detayli_bilgi: "Kapadokya'nın en derin kanyonlarından biri olan vadi boyunca, ilk Hristiyanların saklanmak için oyduğu 100'den fazla kaya kilise bulunur. Yürüyüş parkuru boyunca duvarlardaki freskler ve serin ırmak sesi eşlik eder.",
+    gorsel: "https://picsum.photos/seed/ihlara/500/340" },
+
+  // ===== ORDU =====
+  { id: 187, isim: "Boztepe", sehir: "Ordu", kategori: "Doğal", enlem: 40.9764, boylam: 37.8825, onem: 3,
+    aciklama: "Teleferikle çıkılan, şehir ve Karadeniz'in kuş bakışı manzarasını sunan tepe.",
+    gorsel: "https://picsum.photos/seed/boztepe/500/340" },
+
+  // ===== OSMANİYE =====
+  { id: 188, isim: "Karatepe-Aslantaş Açık Hava Müzesi", sehir: "Osmaniye", kategori: "Tarihi", enlem: 37.3333, boylam: 36.2333, onem: 2, kesif: true,
+    aciklama: "Geç Hitit dönemine ait kabartmalı taş kapılarıyla orman içinde az bilinen açık hava müzesi.",
+    gorsel: "https://picsum.photos/seed/karatepe/500/340" },
+
+  // ===== RİZE =====
+  { id: 189, isim: "Ayder Yaylası", sehir: "Rize", kategori: "Doğal", enlem: 40.9481, boylam: 41.1256, onem: 4,
+    aciklama: "Ahşap yayla evleri, kaplıcaları ve yemyeşil manzarasıyla Karadeniz'in en ünlü yaylası.",
+    gorsel: "https://picsum.photos/seed/ayder/500/340" },
+
+  // ===== SAKARYA =====
+  { id: 190, isim: "Sapanca Gölü", sehir: "Sakarya", kategori: "Doğal", enlem: 40.6939, boylam: 30.2653, onem: 3,
+    aciklama: "İstanbul'a yakınlığıyla hafta sonu kaçamaklarının gözdesi, göl kenarı yürüyüş parkurlarıyla ünlü.",
+    gorsel: "https://picsum.photos/seed/sapanca/500/340" },
+
+  // ===== SAMSUN =====
+  { id: 191, isim: "Bandırma Vapuru ve Atatürk Anıtı", sehir: "Samsun", kategori: "Tarihi", enlem: 41.2867, boylam: 36.3300, onem: 3,
+    aciklama: "Kurtuluş Savaşı'nın başlangıcı kabul edilen, Atatürk'ün 19 Mayıs 1919'da ayak bastığı sahil.",
+    gorsel: "https://picsum.photos/seed/samsun/500/340" },
+
+  // ===== SİİRT =====
+  { id: 192, isim: "Siirt Büryancısı", sehir: "Siirt", kategori: "Meşhur Lezzetler", enlem: 37.9333, boylam: 41.9500, onem: 3,
+    aciklama: "Toprak fırında saatlerce buğulanan kuzu etiyle hazırlanan, bölgenin özel şölen yemeği.",
+    meshur_yemegi: "Kuzu etinin özel taş fırında saatlerce kendi buharında pişirildiği geleneksel Büryan Kebabı.", fiyat_segmenti: "$$",
+    gorsel: "https://picsum.photos/seed/buryan/500/340" },
+
+  // ===== SİNOP =====
+  { id: 193, isim: "Sinop Kalesi ve Tarihi Cezaevi", sehir: "Sinop", kategori: "Tarihi", enlem: 42.0231, boylam: 35.1531, onem: 3, kesif: true,
+    aciklama: "Karadeniz'e üç yandan çevrili yarımadada, antik kale surları ve içindeki tarihi cezaevi binası.",
+    gorsel: "https://picsum.photos/seed/sinop/500/340" },
+
+  // ===== SİVAS =====
+  { id: 194, isim: "Divriği Ulu Camii ve Darüşşifası", sehir: "Sivas", kategori: "Tarihi", enlem: 39.3667, boylam: 38.1167, onem: 4, kesif: true,
+    aciklama: "Taş işçiliğindeki benzersiz zenginliğiyle UNESCO listesindeki, az bilinen ama etkileyici Selçuklu eseri.",
+    detayli_bilgi: "13. yüzyılda inşa edilen yapı kompleksi, taç kapılarındaki olağanüstü zengin oymalı taş süslemeleriyle dünya mimarlık tarihinde eşi benzeri olmayan bir eser kabul edilir. İçindeki darüşşifa (şifahane) bölümü, dönemin en gelişmiş sağlık kurumlarından biriydi.",
+    gorsel: "https://picsum.photos/seed/divrigi/500/340" },
+
+  // ===== ŞANLIURFA =====
+  { id: 195, isim: "Göbeklitepe", sehir: "Şanlıurfa", kategori: "Tarihi", enlem: 37.2233, boylam: 38.9226, onem: 5,
+    aciklama: "12.000 yıllık, dünyanın bilinen en eski tapınak yapısı; tarihin sıfır noktası olarak anılır.",
+    detayli_bilgi: "Tarım ve yerleşik hayattan bile önceye tarihlenen T biçimli dev taş dikilitaşlar, insanlık tarihinin bilinen en eski anıtsal yapısını oluşturur. Üzerlerindeki hayvan kabartmaları, avcı-toplayıcı toplulukların dini inanışlarına dair en eski somut kanıtlar arasında sayılır.",
+    gorsel: "https://picsum.photos/seed/gobeklitepe/500/340" },
+  { id: 196, isim: "Balıklıgöl", sehir: "Şanlıurfa", kategori: "Tarihi", enlem: 37.1591, boylam: 38.7969, onem: 4,
+    aciklama: "Hz. İbrahim'in ateşe atıldığı yerin balıklarla dolu kutsal göle dönüştüğüne inanılan mekân.",
+    gorsel: "https://picsum.photos/seed/balikligol/500/340" },
+  { id: 197, isim: "Urfa Çiğ Köftecisi", sehir: "Şanlıurfa", kategori: "Meşhur Lezzetler", enlem: 37.1674, boylam: 38.7955, onem: 4,
+    aciklama: "Etsiz orijinal tarifiyle hazırlanan, marul yaprağına sarılarak yenen meşhur çiğ köfte.",
+    meshur_yemegi: "İnce bulgur, acı biber salçası ve baharatlarla yoğrulan, marul yaprağına sarılarak servis edilen Çiğ Köfte.", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/cigkofte/500/340" },
+
+  // ===== ŞIRNAK =====
+  { id: 198, isim: "Cudi Dağı", sehir: "Şırnak", kategori: "Doğal", enlem: 37.4667, boylam: 42.1000, onem: 2, kesif: true,
+    aciklama: "Nuh'un Gemisi'nin karaya oturduğuna inanılan, dini inanışlarla iç içe geçmiş dağ.",
+    gorsel: "https://picsum.photos/seed/cudidagi/500/340" },
+
+  // ===== TEKİRDAĞ =====
+  { id: 199, isim: "Tekirdağ Köftecisi", sehir: "Tekirdağ", kategori: "Meşhur Lezzetler", enlem: 40.9833, boylam: 27.5167, onem: 3,
+    aciklama: "Ekmek içi ve rendelenmiş soğanla yoğrulan, ince uzun formuyla tanınan meşhur köfte.",
+    meshur_yemegi: "Kıyma, ekmek içi ve baharatlarla yoğrulup ince uzun şekil verilen ızgara Tekirdağ Köftesi.", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/tekirdagkofte/500/340" },
+
+  // ===== TOKAT =====
+  { id: 200, isim: "Ballıca Mağarası", sehir: "Tokat", kategori: "Doğal", enlem: 40.1667, boylam: 36.5500, onem: 2, kesif: true,
+    aciklama: "Sarkıt ve dikitleriyle Avrupa'nın önde gelen mağaralarından biri olan az bilinen doğal oluşum.",
+    gorsel: "https://picsum.photos/seed/ballica/500/340" },
+
+  // ===== TRABZON =====
+  { id: 201, isim: "Sümela Manastırı", sehir: "Trabzon", kategori: "Tarihi", enlem: 40.6997, boylam: 39.6603, onem: 5,
+    aciklama: "Dik bir kayalığın ortasına oyulmuş, 1600 yıllık Bizans dönemi manastırı.",
+    detayli_bilgi: "4. yüzyılda kurulduğuna inanılan manastır, Karadağ'ın 300 metre yükseklikteki dik kayalıklarına adeta yapışmış gibi durur. İçindeki fresklerde İncil sahneleri canlı renklerle tasvir edilir; manastıra çıkan orman içi patika da ayrı bir doğa deneyimi sunar.",
+    gorsel: "https://picsum.photos/seed/sumela/500/340" },
+  { id: 202, isim: "Uzungöl", sehir: "Trabzon", kategori: "Doğal", enlem: 40.6144, boylam: 40.2867, onem: 4,
+    aciklama: "Ladin ormanlarıyla çevrili, ayna gibi duran göl ve etrafındaki ahşap oteller.",
+    gorsel: "https://picsum.photos/seed/uzungol/500/340" },
+  { id: 203, isim: "Trabzon Kuymakçısı", sehir: "Trabzon", kategori: "Meşhur Lezzetler", enlem: 41.0027, boylam: 39.7168, onem: 3,
+    aciklama: "Mısır unu, tereyağı ve peynirle hazırlanan, tahta kaşıkla karıştırılarak servis edilen sıcak lezzet.",
+    meshur_yemegi: "Mısır unu, taze tereyağı ve yöresel peynirin karıştırılarak pişirildiği sıcak Kuymak (Muhlama).", fiyat_segmenti: "$",
+    gorsel: "https://picsum.photos/seed/kuymak/500/340" },
+
+  // ===== TUNCELİ =====
+  { id: 204, isim: "Munzur Vadisi Milli Parkı", sehir: "Tunceli", kategori: "Doğal", enlem: 39.3333, boylam: 39.4167, onem: 3, kesif: true,
+    aciklama: "Endemik bitki türleri ve berrak Munzur Suyu ile bilinen, az turist gören el değmemiş vadi.",
+    gorsel: "https://picsum.photos/seed/munzur/500/340" },
+
+  // ===== UŞAK =====
+  { id: 205, isim: "Blaundos Antik Kenti", sehir: "Uşak", kategori: "Tarihi", enlem: 38.9333, boylam: 29.4000, onem: 2, kesif: true,
+    aciklama: "Vadinin ortasında tek bir köprüyle ulaşılan, neredeyse hiç ziyaretçi görmeyen antik kent kalıntısı.",
+    gorsel: "https://picsum.photos/seed/blaundos/500/340" },
+
+  // ===== VAN =====
+  { id: 206, isim: "Akdamar Kilisesi", sehir: "Van", kategori: "Tarihi", enlem: 38.6875, boylam: 43.3175, onem: 5,
+    aciklama: "Van Gölü'nün ortasındaki adada, İncil sahnelerini betimleyen taş kabartmalarıyla ünlü Ermeni kilisesi.",
+    detayli_bilgi: "10. yüzyılda inşa edilen kilise, dış cephesindeki Adem ile Havva, Yunus ile Balina gibi İncil sahnelerini anlatan taş kabartmalarıyla dünyaca tanınır. Adaya sadece teknelerle ulaşılır; gölün turkuaz rengiyle kilisenin taş dokusu eşsiz bir manzara oluşturur.",
+    gorsel: "https://picsum.photos/seed/akdamar/500/340" },
+  { id: 207, isim: "Van Kahvaltı Sofrası", sehir: "Van", kategori: "Meşhur Lezzetler", enlem: 38.4891, boylam: 43.4089, onem: 4,
+    aciklama: "Onlarca çeşit peynir, bal, kaymak ve otlu ezmeyle donatılan, Türkiye'nin en zengin kahvaltı kültürü.",
+    meshur_yemegi: "Otlu peynir, kaymak, bal ve murtuğa gibi onlarca çeşitten oluşan geleneksel Van Kahvaltısı.", fiyat_segmenti: "$$",
+    gorsel: "https://picsum.photos/seed/vankahvalti/500/340" },
+
+  // ===== YALOVA =====
+  { id: 208, isim: "Yalova Termal Kaplıcaları", sehir: "Yalova", kategori: "Doğal", enlem: 40.6667, boylam: 29.2667, onem: 2,
+    aciklama: "Atatürk'ün de sık ziyaret ettiği, şifalı suyuyla bilinen tarihi termal tesis.",
+    gorsel: "https://picsum.photos/seed/yalova/500/340" },
+
+  // ===== YOZGAT =====
+  { id: 209, isim: "Çamlık Milli Parkı", sehir: "Yozgat", kategori: "Doğal", enlem: 39.8181, boylam: 34.8147, onem: 2,
+    aciklama: "Şehir merkezine yakın, göletleri ve piknik alanlarıyla yerel halkın gözde nefes alanı.",
+    gorsel: "https://picsum.photos/seed/camlik/500/340" },
+
+  // ===== ZONGULDAK =====
+  { id: 210, isim: "Gökgöl Mağarası", sehir: "Zonguldak", kategori: "Doğal", enlem: 41.4500, boylam: 31.7833, onem: 2, kesif: true,
+    aciklama: "İçinden yer altı nehri geçen, sarkıt ve dikitleriyle bilinen az ziyaret edilen mağara sistemi.",
+    gorsel: "https://picsum.photos/seed/gokgol/500/340" },
 ];
 
 /* ============================================================
@@ -175,6 +621,11 @@ const KATEGORILER = [
   { key: "Meşhur Lezzetler", label: "Meşhur Lezzetler", color: "#E2653B", icon: "fa-utensils" }
 ];
 const katMap = Object.fromEntries(KATEGORILER.map(k => [k.key, k]));
+
+/* ============================================================
+   2b) TÜM İLLER — veri setinden otomatik türetilir (alfabetik)
+   ============================================================ */
+const TUM_ILLER = [...new Set(YERLER.map(y => y.sehir))].sort((a, b) => a.localeCompare(b, "tr"));
 
 /* ============================================================
    3) KONUM SİMÜLASYONU (gerçek konum alınamazsa / test için)
@@ -220,7 +671,10 @@ function yolTarifiAc(lat, lng) {
 function YerKarti({ yer, mesafe }) {
   const [acik, setAcik] = useState(false);
   const kat = katMap[yer.kategori];
-  const detayVar = yer.kategori === "Tarihi" || yer.kategori === "Meşhur Lezzetler";
+  const detayVar = Boolean(
+    (yer.kategori === "Tarihi" && yer.detayli_bilgi) ||
+    (yer.kategori === "Meşhur Lezzetler" && yer.meshur_yemegi)
+  );
 
   return (
     <div className="rounded-2xl overflow-hidden flex flex-col shadow-lg bg-[#16294A] border border-[#223A5E] transition-transform duration-200 hover:-translate-y-1">
@@ -236,6 +690,21 @@ function YerKarti({ yer, mesafe }) {
         <div className="absolute bottom-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold text-[#F5EFE0] bg-[#101F33]/85 border border-[#F5EFE0]/25 backdrop-blur-sm">
           <i className="fa-solid fa-compass text-[11px]"></i>
           {mesafe === null ? "—" : mesafeFormatla(mesafe)}
+        </div>
+        {yer.kesif && (
+          <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold text-[#101F33] bg-[#F5EFE0]">
+            <i className="fa-solid fa-gem text-[10px]"></i>
+            Az Bilinen
+          </div>
+        )}
+        <div className="absolute bottom-3 left-3 flex items-center gap-0.5" title={`Önem puanı: ${yer.onem}/5`}>
+          {[1, 2, 3, 4, 5].map(i => (
+            <i
+              key={i}
+              className="fa-solid fa-star text-[10px]"
+              style={{ color: i <= yer.onem ? "#D9A441" : "rgba(245,239,224,0.25)" }}
+            ></i>
+          ))}
         </div>
       </div>
 
@@ -304,6 +773,10 @@ function SehirRehberi() {
   const [konum, setKonum] = useState(null);
   const [konumDurum, setKonumDurum] = useState("bekliyor"); // bekliyor | yukleniyor | izinVerildi | reddedildi | desteklenmiyor
   const [seciliKategoriler, setSeciliKategoriler] = useState(new Set(KATEGORILER.map(k => k.key)));
+  const [seciliIl, setSeciliIl] = useState(null); // null = tüm iller
+  const [ilPaneliAcik, setIlPaneliAcik] = useState(false);
+  const [ilArama, setIlArama] = useState("");
+  const [siralamaModu, setSiralamaModu] = useState("mesafe"); // mesafe | onem
 
   const konumAl = useCallback(() => {
     if (!navigator.geolocation) {
@@ -345,13 +818,25 @@ function SehirRehberi() {
     });
   };
 
+  const filtrelenmisIller = useMemo(() => {
+    if (!ilArama.trim()) return TUM_ILLER;
+    const q = ilArama.toLocaleLowerCase("tr");
+    return TUM_ILLER.filter(il => il.toLocaleLowerCase("tr").includes(q));
+  }, [ilArama]);
+
   const sonucListesi = useMemo(() => {
     if (!konum) return [];
-    return YERLER
+    const liste = YERLER
       .filter(y => seciliKategoriler.has(y.kategori))
-      .map(y => ({ ...y, mesafe: haversineMesafe(konum.lat, konum.lng, y.enlem, y.boylam) }))
-      .sort((a, b) => a.mesafe - b.mesafe);
-  }, [konum, seciliKategoriler]);
+      .filter(y => !seciliIl || y.sehir === seciliIl)
+      .map(y => ({ ...y, mesafe: haversineMesafe(konum.lat, konum.lng, y.enlem, y.boylam) }));
+
+    if (siralamaModu === "onem") {
+      // Önce önem puanına göre (yüksekten düşüğe), eşitlikte mesafeye göre
+      return liste.sort((a, b) => (b.onem - a.onem) || (a.mesafe - b.mesafe));
+    }
+    return liste.sort((a, b) => a.mesafe - b.mesafe);
+  }, [konum, seciliKategoriler, seciliIl, siralamaModu]);
 
   return (
     <div className="min-h-screen w-full bg-[#101F33]">
@@ -363,7 +848,7 @@ function SehirRehberi() {
         </div>
         <h1 className="font-display text-3xl sm:text-4xl mb-1 font-bold text-[#F5EFE0]">Gezgin Asistanı</h1>
         <p className="text-sm text-[#8FA5BE]">
-          Konumunuza göre en yakın tarihi yerler, doğa noktaları ve meşhur lezzet durakları.
+          81 ilin tamamından tarihi yerler, doğa noktaları, eğlence durakları ve meşhur lezzetler — konumunuza göre sıralanmış.
         </p>
 
         {/* Konum durumu */}
@@ -435,10 +920,100 @@ function SehirRehberi() {
         })}
       </div>
 
+      {/* İL SEÇİCİ + SIRALAMA MODU */}
+      <div className="px-5 pb-3 flex flex-wrap items-center gap-2">
+        <button
+          onClick={() => setIlPaneliAcik(true)}
+          className="flex items-center gap-2 px-3.5 py-2 rounded-full text-sm font-semibold bg-[#16294A] text-[#F5EFE0] border border-[#223A5E]"
+        >
+          <i className="fa-solid fa-map-location-dot text-[13px]" style={{ color: "#D9A441" }}></i>
+          {seciliIl ?? "Tüm İller (81)"}
+          <i className="fa-solid fa-chevron-down text-[10px] text-[#5D7592]"></i>
+        </button>
+        {seciliIl && (
+          <button
+            onClick={() => setSeciliIl(null)}
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-medium text-[#8FA5BE] border border-[#223A5E]"
+          >
+            <i className="fa-solid fa-xmark text-[10px]"></i>
+            Temizle
+          </button>
+        )}
+
+        <div className="flex items-center rounded-full overflow-hidden border border-[#223A5E] ml-auto">
+          <button
+            onClick={() => setSiralamaModu("mesafe")}
+            className={"flex items-center gap-1.5 px-3 py-2 text-xs font-semibold " + (siralamaModu === "mesafe" ? "bg-[#159895] text-[#F5EFE0]" : "text-[#8FA5BE]")}
+          >
+            <i className="fa-solid fa-route text-[11px]"></i>
+            Mesafeye Göre
+          </button>
+          <button
+            onClick={() => setSiralamaModu("onem")}
+            className={"flex items-center gap-1.5 px-3 py-2 text-xs font-semibold " + (siralamaModu === "onem" ? "bg-[#159895] text-[#F5EFE0]" : "text-[#8FA5BE]")}
+          >
+            <i className="fa-solid fa-star text-[11px]"></i>
+            Öneme Göre
+          </button>
+        </div>
+      </div>
+
+      {/* İL SEÇİM PANELİ (overlay) */}
+      {ilPaneliAcik && (
+        <div
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm"
+          onClick={() => setIlPaneliAcik(false)}
+        >
+          <div
+            className="w-full sm:max-w-lg max-h-[80vh] flex flex-col rounded-t-2xl sm:rounded-2xl bg-[#101F33] border border-[#223A5E] overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-4 border-b border-[#223A5E]">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="font-display text-xl font-bold text-[#F5EFE0]">İl Seçin</h2>
+                <button onClick={() => setIlPaneliAcik(false)} className="text-[#8FA5BE]">
+                  <i className="fa-solid fa-xmark text-lg"></i>
+                </button>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#16294A] border border-[#223A5E]">
+                <i className="fa-solid fa-magnifying-glass text-xs text-[#5D7592]"></i>
+                <input
+                  type="text"
+                  value={ilArama}
+                  onChange={(e) => setIlArama(e.target.value)}
+                  placeholder="İl ara… (örn. Trabzon)"
+                  className="bg-transparent outline-none text-sm text-[#F5EFE0] placeholder-[#5D7592] w-full"
+                />
+              </div>
+            </div>
+            <div className="overflow-y-auto p-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <button
+                onClick={() => { setSeciliIl(null); setIlPaneliAcik(false); setIlArama(""); }}
+                className={"px-3 py-2 rounded-lg text-sm font-semibold text-left " + (!seciliIl ? "bg-[#159895] text-[#F5EFE0]" : "bg-[#16294A] text-[#C7D4E3] border border-[#223A5E]")}
+              >
+                Tüm İller
+              </button>
+              {filtrelenmisIller.map(il => (
+                <button
+                  key={il}
+                  onClick={() => { setSeciliIl(il); setIlPaneliAcik(false); setIlArama(""); }}
+                  className={"px-3 py-2 rounded-lg text-sm font-semibold text-left truncate " + (seciliIl === il ? "bg-[#159895] text-[#F5EFE0]" : "bg-[#16294A] text-[#C7D4E3] border border-[#223A5E]")}
+                >
+                  {il}
+                </button>
+              ))}
+              {filtrelenmisIller.length === 0 && (
+                <p className="col-span-full text-center text-sm text-[#5D7592] py-6">Eşleşen il bulunamadı.</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* SONUÇ BİLGİSİ */}
       <div className="px-5 pb-2 flex items-center gap-1.5 text-xs text-[#5D7592]">
         <i className="fa-solid fa-map-pin text-[11px]"></i>
-        {sonucListesi.length} yer bulundu · en yakından en uzağa sıralandı
+        {sonucListesi.length} yer bulundu · {siralamaModu === "onem" ? "önem sırasına göre" : "en yakından en uzağa"} sıralandı
       </div>
 
       {/* KART LİSTESİ */}
